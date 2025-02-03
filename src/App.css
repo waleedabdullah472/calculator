@@ -1,0 +1,400 @@
+:root {
+  --primary: #2a2a2a;
+  --secondary: #3a3a3a;
+  --accent: #ff9500;
+  --text: #ffffff;
+  --shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  --neon: 0 0 10px var(--accent);
+}
+
+.calculator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.calculator {
+  background: rgba(40, 40, 40, 0.9);
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  width: 350px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.display {
+  background: rgba(20, 20, 20, 0.9);
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  text-align: right;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.display::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  100% { left: 100%; }
+}
+
+.expression {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2em;
+  min-height: 24px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.current {
+  color: var(--text);
+  font-size: 3em;
+  margin-top: 10px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.btn {
+  background: var(--primary);
+  border: none;
+  color: var(--text);
+  padding: 20px;
+  font-size: 1.4em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  box-shadow: var(--shadow);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.operator {
+  background: var(--accent);
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.operator:hover {
+  background: #ffaa33;
+  box-shadow: var(--neon);
+}
+
+.equals {
+  background: #007AFF;
+  grid-column: span 2;
+}
+
+.equals:hover {
+  background: #0066CC;
+  box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
+}
+
+.btn[value="C"] {
+  background: #ff3b30;
+}
+
+.btn[value="DEL"] {
+  background: #5856d6;
+}
+
+.btn[value="C"]:hover,
+.btn[value="DEL"]:hover {
+  filter: brightness(1.2);
+}
+
+/* Advanced Press Animation */
+@keyframes press {
+  0% {
+    transform: scale(1);
+    box-shadow: var(--shadow);
+  }
+  50% {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow);
+  }
+}
+
+.btn:active {
+  animation: press 0.3s ease;
+}
+
+/* CRT Screen Effect */
+.display::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 255, 255, 0.05) 10%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  animation: scanline 6s linear infinite;
+}
+
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .calculator {
+    width: 90vw;
+    padding: 15px;
+  }
+  
+  .btn {
+    padding: 15px;
+    font-size: 1.2em;
+  }
+  
+  .current {
+    font-size: 2.5em;
+  }
+}
+:root {
+  /* Updated Color Scheme */
+  --primary: #2a2a2a;
+  --secondary: #3a3a3a;
+  --accent: #ff9500;
+  --text: #ffffff;
+  --shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  --neon: 0 0 10px var(--accent);
+  --error: #ff3b30;
+  --success: #34c759;
+}
+
+/* New Floating Animation */
+@keyframes floatingShadow {
+  0%, 100% { box-shadow: var(--shadow); }
+  50% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); }
+}
+
+.calculator {
+  animation: float 4s ease-in-out infinite, floatingShadow 4s ease-in-out infinite;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Advanced Hover Effect */
+.calculator:hover {
+  transform: translateY(-2px) rotateX(1deg) rotateY(1deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced Display Effects */
+.display {
+  perspective: 1000px;
+}
+
+.current {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.current::after {
+  content: attr(data-value);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(255,255,255,0.1);
+  transform: translateZ(-1px);
+}
+
+/* Particle Effect on Equals */
+@keyframes particle {
+  0% { transform: translate(0,0); opacity: 1; }
+  100% { transform: translate(var(--x,0), var(--y,0)); opacity: 0; }
+}
+
+.equals:active::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  animation: particle 0.6s ease-out;
+}
+
+/* Gradient Border Effect */
+.calculator::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    var(--accent), 
+    #007AFF, 
+    var(--accent)
+  );
+  z-index: -1;
+  border-radius: 27px;
+  animation: borderGlow 4s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% { filter: hue-rotate(0deg); opacity: 0.8; }
+  100% { filter: hue-rotate(360deg); opacity: 0.8; }
+}
+
+/* Advanced Error State */
+.display.error {
+  animation: errorShake 0.4s ease;
+  background: var(--error);
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+}
+
+/* Success State */
+.display.success {
+  background: var(--success);
+  animation: successPop 0.4s ease;
+}
+
+@keyframes successPop {
+  50% { transform: scale(1.05); }
+}
+
+/* Dynamic Button Press Effect */
+.btn:active {
+  animation: press 0.3s ease, ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  from { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
+  to { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+}
+
+/* Hover Gradient Effect */
+.btn:hover {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.1),
+    rgba(255,255,255,0.05)
+  );
+}
+
+/* Advanced Operator Animation */
+.operator {
+  animation: operatorPulse 2s infinite;
+}
+
+@keyframes operatorPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Keyboard Focus States */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,149,0,0.5);
+  transform: translateY(-3px);
+}
+
+/* Responsive Enhancements */
+@media (max-width: 400px) {
+  .calculator {
+    transform: scale(0.95);
+    animation: none;
+  }
+  
+  .calculator:hover {
+    transform: scale(0.95) translateY(-2px);
+  }
+}
+
+/* Loading Animation */
+@keyframes loadIn {
+  from { 
+    transform: scale(0.8) rotateY(90deg);
+    opacity: 0;
+  }
+  to { 
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+}
+
+.calculator {
+  animation: loadIn 0.6s ease-out, float 4s ease-in-out infinite;
+}
